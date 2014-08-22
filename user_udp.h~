@@ -1,0 +1,10 @@
+/*
+ * 用于在解RTP包时处理SeqNum和Timestamp
+ */
+
+#define SERVERPORT 6789
+
+typedef unsigned int uint;
+typedef struct user_udp userudp;
+
+struct
