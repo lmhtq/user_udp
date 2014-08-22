@@ -7,6 +7,11 @@ PWD=$(cd "$(dirname "$0")"; pwd)
 codec_dir=${VLC_ROOT}modules/codec
 rtp_dir=${VLC_ROOT}modules/access/rtp
 
+if [ ! -d $VLC_ROOT ]; then
+	echo "Cannot detect the vlc source codes"
+	exit
+fi
+
 if [ ! -f $codec_dir/x264.c.bak ]; then  
 mv $codec_dir/x264.c $codec_dir/x264.c.bak
 fi
