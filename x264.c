@@ -1475,7 +1475,7 @@ static block_t *Encode( encoder_t *p_enc, picture_t *p_pict )
 	/* 改动这里了 */
 	
 	//printf("%d %d\n",server_udp.bitrate, server_udp.last_bitrate);
-	if (server_udp.bitrate != server_udp.last_bitrate)
+	if (abs(server_udp.bitrate/server_udp.last_bitrate-1) > 0.15 )
 	{
 		x264_encoder_close( p_sys->h );
 		x264_param_t *p_adaptive = &p_sys->param;

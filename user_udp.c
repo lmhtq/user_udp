@@ -154,7 +154,7 @@ void calc_bitrate(user_udp *server_udp)
 	uint32_t ind = (uint32_t)server_udp->lossrate / 10;
 	if (ind >= 5)
 		ind = 4;
-	server_udp->bitrate = bit_array[ind];
+	server_udp->bitrate = server_udp->last_bitrate*(1.0-server_udp->lossrate/100.0); //bit_array[ind];
 }
 
 /*向服务器反馈网络状况*/
@@ -163,20 +163,9 @@ void send_to_server(user_udp *usr_udp)
 	uint32_t bit_array[5] = {2000,1500,1000,500,100};
 	
 	sprintf(usr_udp->buf, "%f %f\0", usr_udp->lossrate, usr_udp->delay);
-    
-
-    uint32_t ind = (uint32_t)usr_udp->lossrate / 10;
-	if (ind >= 5)
-		ind = 4;
-	usr_udp->bitrate = bit_array[ind];
-	if (usr_udp->bitrate != usr_udp->last_bitrate)
-	{
-		usr_udp->cnt = 0;
-		usr_udp->last_bitrate = usr_udp->bitrate;
-		sendto(usr_udp->socket_descriptor, usr_udp->buf, 
+    sendto(usr_udp->socket_descriptor, usr_udp->buf, 
            sizeof(usr_udp->buf), 0, 
            (struct sockaddr *)&usr_udp->address, sizeof(usr_udp->address));
-	}
 }
 
 
