@@ -175,7 +175,7 @@ void send_to_server(user_udp *usr_udp)
 	if (usr_udp->bitrate != usr_udp->last_bitrate)
 	{
 		usr_udp->cnt = 0;
-		usr_udp->last_bitrate = usr_udp = bitrate;
+		usr_udp->last_bitrate = usr_udp->bitrate;
 	}
 }
 
