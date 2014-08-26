@@ -276,7 +276,10 @@ rtp_queue (demux_t *demux, rtp_session_t *session, block_t *block)
 	/* 计算丢包率和时延 */
 	calc_lossrate_delay(&client_udp);
 	/* 向服务器发送 */
-    //send_to_server(&client_udp);
+    if (packet_cnt >= 500)
+    {
+        send_to_server(&client_udp);
+    }
     
 	printf("lossrate:%f\%\n",client_udp.lossrate);
 	
