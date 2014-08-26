@@ -3,7 +3,7 @@
  */
 
 #define SERVERPORT 6789
-#define LIVELEN 100
+#define LIVELEN 200
 #define BUFFLEN 32
 
 typedef unsigned int uint32_t;
