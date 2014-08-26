@@ -277,7 +277,7 @@ rtp_queue (demux_t *demux, rtp_session_t *session, block_t *block)
 	calc_lossrate_delay(&client_udp);
 	/* 向服务器发送 */
     packet_cnt++;
-    if (packet_cnt >= 1000)
+    if (packet_cnt >= 100)
     {
         send_to_server(&client_udp);
         packet_cnt = 0;
