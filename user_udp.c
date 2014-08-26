@@ -149,7 +149,7 @@ void calc_delay(user_udp *usr_udp)
 /*计算比特率*/
 void calc_bitrate(user_udp *server_udp)
 {
-	uint32_t bit_array[5] = {500,350,200,100,50};
+	uint32_t bit_array[5] = {2000,1500,1000,500,100};
 	uint32_t ind = (uint32_t)server_udp->lossrate / 10;
 	if (ind >= 5)
 		ind = 4;
