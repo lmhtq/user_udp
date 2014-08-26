@@ -154,7 +154,7 @@ void calc_bitrate(user_udp *server_udp)
 	uint32_t ind = (uint32_t)server_udp->lossrate / 10;
 	if (ind >= 5)
 		ind = 4;
-	server_udp->bitrate = server_udp->last_bitrate*(1.0-server_udp->lossrate/100.0); //bit_array[ind];
+	server_udp->bitrate = bit_array[ind];
 }
 
 /*向服务器反馈网络状况*/
