@@ -137,7 +137,7 @@ void calc_lossrate_delay(user_udp *usr_udp)
     		 * calc delay
     		 */
     		usr_udp->delay = 0;
-
+    		send_to_server(usr_udp);
     }
 }
 
