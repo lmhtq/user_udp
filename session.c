@@ -270,13 +270,19 @@ rtp_queue (demux_t *demux, rtp_session_t *session, block_t *block)
 	
 	/* 初始化 */
 	user_udp_init(&client_udp);
+    static int packet_cnt = 0;
 	/* 赋值 */
 	set_timestamp_sn(&client_udp, 0, now, seq);
 	/* 计算丢包率和时延 */
 	calc_lossrate_delay(&client_udp);
 	/* 向服务器发送 */
-	send_to_server(&client_udp);
-
+    packet_cnt++;
+    if (packet_cnt >= 1000)
+    {
+        send_to_server(&client_udp);
+        packet_cnt = 0;
+    }
+	
 	printf("lossrate:%f\%\n",client_udp.lossrate);
 	
     /* In most case, we know this source already */
