@@ -163,9 +163,7 @@ void send_to_server(user_udp *usr_udp)
 	uint32_t bit_array[5] = {2000,1500,1000,500,100};
 	
 	sprintf(usr_udp->buf, "%f %f\0", usr_udp->lossrate, usr_udp->delay);
-    sendto(usr_udp->socket_descriptor, usr_udp->buf, 
-           sizeof(usr_udp->buf), 0, 
-           (struct sockaddr *)&usr_udp->address, sizeof(usr_udp->address));
+    
 
     uint32_t ind = (uint32_t)usr_udp->lossrate / 10;
 	if (ind >= 5)
@@ -175,6 +173,9 @@ void send_to_server(user_udp *usr_udp)
 	{
 		usr_udp->cnt = 0;
 		usr_udp->last_bitrate = usr_udp->bitrate;
+		sendto(usr_udp->socket_descriptor, usr_udp->buf, 
+           sizeof(usr_udp->buf), 0, 
+           (struct sockaddr *)&usr_udp->address, sizeof(usr_udp->address));
 	}
 }
 
