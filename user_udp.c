@@ -99,8 +99,9 @@ void server_udp_init(user_udp *server_udp)
     		sizeof(server_udp->address) );
 
     server_udp->is_init = 1;
-    server_udp->bitrate = 100;
+    server_udp->bitrate = 50;
     server_udp->last_bitrate = server_udp->bitrate;
+    server_udp->network_status = 0;
     memset(server_udp->buf, 0, sizeof(BUFFLEN));
     
 }
@@ -150,11 +151,25 @@ void calc_delay(user_udp *usr_udp)
 /*计算比特率*/
 void calc_bitrate(user_udp *server_udp)
 {
+	static uint32_t cnt = 0;
+	if (server_udp->lossrate < 1)
+	{
+		cnt++;
+	}
+	else
+		cnt = 0;
+	if (cnt >= 5)
+	{
+		server_udp->bitrate += 50;
+		cnt = 0;
+	}
+	/*
 	uint32_t bit_array[5] = {2000,1500,1000,500,100};
 	uint32_t ind = (uint32_t)server_udp->lossrate / 10;
 	if (ind >= 5)
 		ind = 4;
 	server_udp->bitrate = bit_array[ind];
+	*/
 }
 
 /*向服务器反馈网络状况*/

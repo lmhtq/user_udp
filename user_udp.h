@@ -27,7 +27,8 @@ struct user_udp
 
     /*服务器端参数*/
     uint32_t bitrate;
-    uint32_t last_bitrate;    
+    uint32_t last_bitrate;  
+    uint32_t network_status;  
     
     /*Socket参数*/
     char buf[BUFFLEN];
