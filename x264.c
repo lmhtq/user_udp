@@ -1487,16 +1487,14 @@ static block_t *Encode( encoder_t *p_enc, picture_t *p_pict )
 		p_adaptive->rc.i_bitrate  = server_udp.bitrate;
 		p_adaptive->rc.i_vbv_max_bitrate = server_udp.bitrate*1.2;
 		p_adaptive->rc.i_vbv_buffer_size = server_udp.bitrate;
-		p_adaptive->rc.i_rc_method = X264_RC_CRF;
+		p_adaptive->rc.i_rc_method = X264_RC_ABR;
         
-        p_sys->h = x264_encoder_open( p_adaptive );
-		
+        p_sys->h = x264_encoder_open( p_adaptive );		
 		
 		//x264_encoder_reconfig( p_sys->h, p_adaptive );
-		printf("Change to:%d\n",p_adaptive->rc.i_bitrate );		
+		printf("Change to:%d\n",p_adaptive->rc.i_bitrate);		
 	}
-	
-	
+		
     /* init pic */
 #if X264_BUILD >= 98
     x264_picture_init( &pic );
