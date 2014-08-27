@@ -101,7 +101,8 @@ void server_udp_init(user_udp *server_udp)
     server_udp->is_init = 1;
     server_udp->bitrate = 1200;
     server_udp->last_bitrate = server_udp->bitrate;
-    server_udp->network_status = 0;
+    server_udp->lossrate = 0;
+    server_udp->last_lossrate = 0;
     memset(server_udp->buf, 0, sizeof(BUFFLEN));
     
 }
@@ -151,32 +152,26 @@ void calc_delay(user_udp *usr_udp)
 /*计算比特率*/
 void calc_bitrate(user_udp *server_udp)
 {
-	static uint32_t cnt = 0;
+	static int cnt = 0;
+	float delta = server_udp->lossrate - server_udp->last_lossrate;
+	
 	if (server_udp->lossrate < 1)
 	{
 		cnt++;
 	}
-	else if (server_udp->lossrate >= 10 )
+	else if (server_udp->lossrate > 1 && server_udp->lossrate <= 10 && delta >= 0)
 	{
 		cnt = 0;
-		server_udp->bitrate = 550;
+		if (server_udp->bitrate >= 150)
+			server_udp->bitrate -= 50;
 	}
-	/*else if (server_udp->lossrate >= 1 && server_udp->lossrate <= 3 )
+	else if (server_udp->lossrate > 10 && delta >= 0)
 	{
 		cnt = 0;
-	}
-	else if (server_udp->lossrate > 3 && server_udp->lossrate <= 5 )
-	{
-		cnt = 0;
-		if (server_udp->bitrate >= 200)
-			server_udp->bitrate -= 150;
-	}*/
-	else
-	{
-		cnt = 0;
-		if (server_udp->bitrate >= 100)
-			server_udp->bitrate -= 50;	
-	}
+		if (server_udp->bitrate >= 300)
+			server_udp->bitrate -= 200;
+	}		
+	
 	if (cnt >= 5)
 	{
 		server_udp->bitrate += 50;
@@ -211,6 +206,7 @@ void recv_from_client(user_udp *server_udp)
 	recvfrom(server_udp->socket_descriptor, server_udp->buf, 
 		sizeof(server_udp->buf), 0, (struct sockaddr *)&server_udp->address,&len);
 	sscanf(server_udp->buf,"%f %f", &lossrate, &delay);
+	server_udp->last_lossrate = server_udp->lossrate;
 	server_udp->lossrate = lossrate;
 	server_udp->delay = delay;
 

@@ -22,6 +22,7 @@ struct user_udp
     uint64_t local_timestamp_array[LIVELEN];
     uint64_t cnt;
     float lossrate;
+    float last_lossrate;
     float delay;
     char is_init;
 
