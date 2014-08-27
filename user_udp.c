@@ -78,7 +78,7 @@ void user_udp_init(user_udp *usr_udp)
     usr_udp->socket_descriptor = socket(AF_INET, SOCK_DGRAM, 0);
 
     usr_udp->is_init = 1;
-    usr_udp->bitrate = 100;
+    usr_udp->bitrate = 1200;
     usr_udp->last_bitrate = usr_udp->bitrate;
     memset(usr_udp->buf, 0, sizeof(BUFFLEN));
 }
@@ -157,7 +157,12 @@ void calc_bitrate(user_udp *server_udp)
 		cnt++;
 	}
 	else
+	{
 		cnt = 0;
+		if (server_udp->bitrate >= 100)
+			server_udp->bitrate -= 50;
+		
+	}
 	if (cnt >= 5)
 	{
 		server_udp->bitrate += 50;
