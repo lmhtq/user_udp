@@ -278,7 +278,7 @@ rtp_queue (demux_t *demux, rtp_session_t *session, block_t *block)
 	/* 向服务器发送 */
     
     packet_cnt++;
-    if (packet_cnt >= 100)
+    if (packet_cnt >= 200)
     {
         send_to_server(&client_udp);
     }
