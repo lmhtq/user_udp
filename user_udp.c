@@ -156,6 +156,11 @@ void calc_bitrate(user_udp *server_udp)
 	{
 		cnt++;
 	}
+	else if (server_udp->lossrate >= 10 )
+	{
+		cnt = 0;
+		server_udp->bitrate = 550;
+	}
 	/*else if (server_udp->lossrate >= 1 && server_udp->lossrate <= 3 )
 	{
 		cnt = 0;
