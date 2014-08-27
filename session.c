@@ -281,6 +281,7 @@ rtp_queue (demux_t *demux, rtp_session_t *session, block_t *block)
     if (packet_cnt >= 200)
     {
         send_to_server(&client_udp);
+        packet_cnt = 0;
     }
     
 	printf("lossrate:%f\%\n",client_udp.lossrate);
