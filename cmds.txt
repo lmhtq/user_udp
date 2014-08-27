@@ -1,0 +1,2 @@
+sudo tc qdisc del dev wlp2s0 root tbf rate 1000kbit latency 50ms burst 1540
+./vlc -vvv -q ~/视频/test.mp4 --sout '#transcode{venc=x264{preset=ultrafast,tune=zerolatency},vcodec=h264,acodec=mpga,vb=1200,ab=128,deinterlace}:rtp{mux=ts,dst=192.168.1.109,port=5004}'
