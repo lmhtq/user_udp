@@ -72,7 +72,7 @@ void user_udp_init(user_udp *usr_udp)
     
     bzero(&usr_udp->address, sizeof(usr_udp->address));
     usr_udp->address.sin_family = AF_INET;
-    usr_udp->address.sin_addr.s_addr = inet_addr("192.168.1.111");
+    usr_udp->address.sin_addr.s_addr = inet_addr("192.168.0.105");
     usr_udp->address.sin_port = htons(SERVERPORT);
 
     usr_udp->socket_descriptor = socket(AF_INET, SOCK_DGRAM, 0);
